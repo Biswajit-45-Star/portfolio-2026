@@ -20,6 +20,8 @@ export default function ContactForm() {
         border-white/10
         bg-white/2
         p-8
+        hidden
+        lg:block
         backdrop-blur-xl
         opacity-70
         pointer-events-none
