@@ -7,6 +7,7 @@ import IntroLoader from "./components/IntroLoader"
 import Navbar from "./components/navbar/Navbar"
 import Projects from "./components/projects/Projects"
 import Skills from "./components/skills/Skills"
+import FeedbackSection from "./components/feedback/FeedbackSection"
 
 const App = () => {
       const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ const App = () => {
           <Experience />
           <Projects />
           <Skills />
+          <FeedbackSection /> 
           <Contact />
         </>
     )}
