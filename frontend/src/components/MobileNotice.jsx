@@ -69,7 +69,7 @@ const MobileNotice = () => {
 
             <button
               onClick={closePopup}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 py-3 font-medium text-white"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-(--primary) py-3 font-medium text-white"
             >
               <Smartphone size={18} />
               Continue
