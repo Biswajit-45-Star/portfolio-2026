@@ -8,6 +8,7 @@ import Navbar from "./components/navbar/Navbar"
 import Projects from "./components/projects/Projects"
 import Skills from "./components/skills/Skills"
 import FeedbackSection from "./components/feedback/FeedbackSection"
+import MobileNotice from "./components/MobileNotice"
 
 const App = () => {
       const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ const App = () => {
       
       {!loading && (
         <>
+          <MobileNotice />
           <Navbar />
           <Hero />
           <About />
