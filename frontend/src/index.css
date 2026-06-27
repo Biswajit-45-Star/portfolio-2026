@@ -54,3 +54,20 @@ html {
 .card {
   @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl;
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.marquee:hover {
+  animation-duration: 60s;
+}
