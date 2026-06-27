@@ -91,7 +91,7 @@ export default function Contact() {
                                     </p>
 
                                     <p className="text-white">
-                                        officialbiswajit45@gmail.com
+                                        work.biswajitsahu@gmail.com
                                     </p>
                                 </div>
                             </div>
