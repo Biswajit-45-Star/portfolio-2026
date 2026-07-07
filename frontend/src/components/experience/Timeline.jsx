@@ -37,7 +37,7 @@ const timelineData = [
 
 export default function Timeline() {
   return (
-    <div className="relative">
+<div className="relative mx-auto max-w-3xl">
 
       {/* Vertical Line */}
       <div
@@ -70,10 +70,7 @@ export default function Timeline() {
               transition={{
                 duration: 0.5,
               }}
-              className="
-                relative
-                pl-16
-              "
+              className="relative pl-12 sm:pl-16"
             >
               {/* Icon */}
               <div
@@ -99,7 +96,8 @@ export default function Timeline() {
                   rounded-3xl
                   border border-white/10
                   bg-white/3
-                  p-6
+                  p-5
+                  sm:p-6
                   backdrop-blur-xl
                   transition-all
                   duration-300

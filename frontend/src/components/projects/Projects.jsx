@@ -46,32 +46,15 @@ export default function Projects() {
         useState(null);
 
     return (
-        <section
-            id="projects"
-            className="
-                px-6
-                py-32
-            "
-        >
+        <section id="projects" className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
             <div className="mx-auto max-w-7xl">
 
-                <div className="mb-16 text-center">
-                    <h2
-                        className="
-                            text-5xl
-                            font-black
-                            text-white
-                        "
-                    >
+                <div className="mb-12 text-center sm:mb-16">
+                    <h2 className="text-3xl font-black text-white sm:text-4xl md:text-5xl">
                         Projects
                     </h2>
 
-                    <p
-                        className="
-                            mt-4
-                            text-slate-400
-                        "
-                    >
+                    <p className="mt-4 text-base text-slate-400 sm:text-lg">
                         Selected work and
                         engineering solutions.
                     </p>
@@ -79,13 +62,7 @@ export default function Projects() {
 
                 <ProjectShowcase />
 
-                <div
-                    className="
-                        grid
-                        gap-8
-                        md:grid-cols-2
-                    "
-                >
+                <div className="grid gap-8 md:grid-cols-2">
                     {projects.map((project) => (
                         <ProjectCard
                             key={project.id}

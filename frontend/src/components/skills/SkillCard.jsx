@@ -13,19 +13,7 @@ export default function SkillCard({ skill, isActive }) {
             }}
         >
             <motion.div
-                className="
-                    rounded-3xl
-                    border border-white/10
-                    bg-linear-to-br from-white/3 to-transparent
-                    p-6
-                    backdrop-blur-xl
-                    transition-all
-                    duration-300
-                    h-full
-                    relative
-                    overflow-hidden
-                    group
-                "
+                className="relative h-full overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-white/3 to-transparent p-5 backdrop-blur-xl transition-all duration-300 group sm:p-6"
                 animate={{
                     borderColor: isActived ? skill.color : "rgba(255,255,255,0.1)",
                     boxShadow: isActived
@@ -45,15 +33,7 @@ export default function SkillCard({ skill, isActive }) {
 
                 {/* Icon Container */}
                 <motion.div
-                    className="
-                        flex h-16 w-16
-                        items-center justify-center
-                        rounded-2xl
-                        bg-linear-to-br
-                        from-violet-500/20
-                        to-cyan-500/20
-                        relative
-                    "
+                    className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-linear-to-br from-violet-500/20 to-cyan-500/20 sm:h-16 sm:w-16"
                     animate={{
                         rotate: isActived ? [0, -10, 10, 0] : 0,
                     }}
@@ -77,14 +57,7 @@ export default function SkillCard({ skill, isActive }) {
                 </motion.div>
 
                 {/* Skill Name */}
-                <h3
-                    className="
-                        mt-4
-                        font-semibold
-                        text-white
-                        text-lg
-                    "
-                >
+                <h3 className="mt-4 text-base font-semibold text-white sm:text-lg">
                     {skill.name}
                 </h3>
 

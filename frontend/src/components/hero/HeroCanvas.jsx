@@ -8,16 +8,7 @@ import {
 
 export default function HeroCanvas() {
     return (
-        <div
-            className="
-        relative
-        hidden
-        h-[600px]
-        items-center
-        justify-center
-        lg:flex
-      "
-        >
+        <div className="relative hidden h-88 w-full items-center justify-center lg:flex lg:h-128 lg:max-w-136">
 
             {/* Center Circle */}
             <motion.div
@@ -29,17 +20,7 @@ export default function HeroCanvas() {
                     repeat: Infinity,
                     ease: "linear",
                 }}
-                className="
-          absolute
-          flex
-          h-56
-          w-56
-          items-center
-          justify-center
-          rounded-full
-          border
-          border-violet-500/20
-        "
+                className="absolute flex h-40 w-40 items-center justify-center rounded-full border border-violet-500/20 sm:h-48 sm:w-48 lg:h-56 lg:w-56"
             >
                 <Atom
                     size={80}
@@ -56,16 +37,7 @@ export default function HeroCanvas() {
                     duration: 4,
                     repeat: Infinity,
                 }}
-                className="
-          absolute
-          top-10
-          rounded-2xl
-          border
-          border-white/10
-          bg-white/5
-          p-4
-          backdrop-blur-xl
-        "
+                className="absolute top-10 rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-xl sm:p-4"
             >
                 <Code2 size={40} />
             </motion.div>
@@ -79,16 +51,7 @@ export default function HeroCanvas() {
                     duration: 5,
                     repeat: Infinity,
                 }}
-                className="
-          absolute
-          right-10
-          rounded-2xl
-          border
-          border-white/10
-          bg-white/5
-          p-4
-          backdrop-blur-xl
-        "
+                className="absolute right-10 rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-xl sm:p-4"
             >
                 <Database size={40} />
             </motion.div>
@@ -102,30 +65,14 @@ export default function HeroCanvas() {
                     duration: 6,
                     repeat: Infinity,
                 }}
-                className="
-          absolute
-          bottom-10
-          rounded-2xl
-          border
-          border-white/10
-          bg-white/5
-          p-4
-          backdrop-blur-xl
-        "
+                className="absolute bottom-10 rounded-2xl border border-white/10 bg-white/5 p-3 backdrop-blur-xl sm:p-4"
             >
                 <Smartphone size={40} />
             </motion.div>
 
             {/* Glow */}
             <div
-                className="
-          absolute
-          h-72
-          w-72
-          rounded-full
-          bg-cyan-500/10
-          blur-[100px]
-        "
+                className="absolute h-64 w-64 rounded-full bg-cyan-500/10 blur-[100px] sm:h-72 sm:w-72"
             />
         </div>
     );

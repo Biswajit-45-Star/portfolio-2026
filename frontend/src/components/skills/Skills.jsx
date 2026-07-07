@@ -255,13 +255,13 @@ export default function Skills() {
         <section
             ref={sectionRef}
             id="skills"
-            className="relative px-6 py-32 overflow-hidden"
+            className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
         >
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute -top-40 -right-40 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse" />
                 <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-fuchsia-500/5 rounded-full blur-3xl animate-pulse delay-500" />
+                <div className="absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-fuchsia-500/5 blur-3xl animate-pulse delay-500 sm:h-[32rem] sm:w-[32rem]" />
             </div>
 
             <div className="mx-auto max-w-7xl relative z-10">
@@ -300,7 +300,7 @@ export default function Skills() {
                         />
                     </motion.span>
 
-                    <h2 className="mt-6 text-5xl font-black text-white">
+                    <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl">
                         Skills &
                         <motion.span
                             className="
@@ -329,13 +329,7 @@ export default function Skills() {
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : {}}
                         transition={{ delay: 0.2, duration: 0.6 }}
-                        className="
-                            mx-auto
-                            mt-6
-                            max-w-2xl
-                            text-lg
-                            text-slate-400
-                        "
+                        className="mx-auto mt-6 max-w-2xl text-base text-slate-400 sm:text-lg"
                     >
                         Technologies and tools I use to build modern,
                         scalable and performant applications.
@@ -359,7 +353,7 @@ export default function Skills() {
                     transition={{ delay: 0.5, duration: 0.6 }}
                     className="mt-20"
                 >
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
                         {filteredSkills.map((skill, index) => (
                             <motion.div
                                 key={skill.name}

@@ -3,24 +3,10 @@ import Stats from "./Stats";
 
 export default function About() {
     return (
-        <section
-            id="about"
-            className="
-                relative
-                py-32
-                px-6
-            "
-        >
+        <section id="about" className="relative px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
             <div className="mx-auto max-w-7xl">
 
-                <div
-                    className="
-                        grid
-                        gap-16
-                        lg:grid-cols-2
-                        items-center
-                    "
-                >
+                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
 
                     {/* Left Side */}
                     <motion.div
@@ -42,15 +28,7 @@ export default function About() {
                             About Me
                         </span>
 
-                        <h2
-                            className="
-                                mt-6
-                                text-4xl
-                                font-black
-                                text-white
-                                md:text-5xl
-                            "
-                        >
+                        <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl">
                             Frontend Engineer &
                             <span
                                 className="
@@ -64,25 +42,11 @@ export default function About() {
                             </span>
                         </h2>
 
-                        <p
-                            className="
-                                mt-6
-                                text-lg
-                                leading-relaxed
-                                text-slate-400
-                            "
-                        >
+                        <p className="mt-6 text-base leading-relaxed text-slate-400 sm:text-lg">
                             Frontend Engineer | React.js, Next.js & MERN Stack Developer | 1.5+ Years of Experience Building Enterprise Applications, ERP Solutions, Business Platforms & Customer-Facing Products | Skilled in Scalable UI Architecture, REST API Integration, Redux Toolkit, Performance Optimization & Modern Web Development | Passionate About Creating Impactful Digital Experiences, Continuous Learning, and AI-Assisted Engineering
                         </p>
 
-                        <p
-                            className="
-                                mt-4
-                                text-lg
-                                leading-relaxed
-                                text-slate-400
-                            "
-                        >
+                        <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
                             Currently seeking exciting opportunities and open to relocation across Bangalore, Hyderabad, Pune, and Mumbai. Passionate about coding and software engineering, with a strong desire to learn, build, and grow every day. Always ready to take ownership, embrace challenges, and contribute wherever impactful work is being done.
                         </p>
                     </motion.div>

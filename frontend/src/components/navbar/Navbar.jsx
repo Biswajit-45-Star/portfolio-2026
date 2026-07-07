@@ -211,16 +211,13 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`fixed top-5 left-1/2 z-50 w-[95%] max-w-7xl -translate-x-1/2 transition-all duration-300 ${scrolled ? "top-2" : "top-5"
-                }`}>
+            <nav className={`fixed left-1/2 top-5 z-50 w-[min(95%,80rem)] -translate-x-1/2 transition-all duration-300 ${scrolled ? "top-2" : "top-5"}`}>
+
                 <motion.div
                     initial={{ y: -100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.5 }}
-                    className={`flex items-center justify-between rounded-2xl border border-white/10 px-6 py-4 backdrop-blur-xl transition-all duration-300 ${scrolled
-                        ? "bg-[#0B1120]/90 shadow-2xl shadow-violet-500/5"
-                        : "bg-[#0B1120]/60"
-                        }`}
+                    className={`flex items-center justify-between rounded-2xl border border-white/10 px-4 py-3 backdrop-blur-xl transition-all duration-300 sm:px-6 sm:py-4 ${scrolled ? "bg-[#0B1120]/90 shadow-2xl shadow-violet-500/5" : "bg-[#0B1120]/60"}`}
                 >
                     {/* Logo */}
                     <motion.div
@@ -353,7 +350,7 @@ export default function Navbar() {
                                     transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
                                     pointer-events-none group-hover:pointer-events-auto
                                     absolute right-0 top-full pt-3
-                                    w-100
+                                    w-80
                                     rounded-2xl 
                                     border border-white/10 
                                     bg-[#0B1120]/95 backdrop-blur-xl
@@ -372,7 +369,7 @@ export default function Navbar() {
                                     </div>
 
                                     {/* Services Grid */}
-                                    <div className="grid gap-1 p-1 max-h-100 overflow-y-auto custom-scrollbar">
+                                    <div className="grid gap-1 p-1 max-h-96 overflow-y-auto custom-scrollbar">
                                         {services.map((s, index) => (
                                             <a href="/#contact">
                                                 <motion.div
@@ -524,16 +521,8 @@ export default function Navbar() {
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: 50, opacity: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="
-                                w-[90%] max-w-md
-                                rounded-3xl
-                                border border-white/10
-                                bg-[#0B1120]
-                                p-6
-                                shadow-2xl
-                                mt-22.5
-                                max-h-[90vh] overflow-y-auto
-                            "
+                            className="mt-20 w-[min(90vw,28rem)] max-w-md rounded-3xl border border-white/10 bg-[#0B1120] p-5 shadow-2xl max-h-[85vh] overflow-y-auto sm:p-6"
+
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="flex flex-col gap-4">

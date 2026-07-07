@@ -118,7 +118,7 @@ export default function SkillOrbit() {
       {/* Desktop: 3D Holographic Orbit */}
       <div
         ref={containerRef}
-        className="relative mx-auto hidden h-150 w-150 lg:block"
+        className="relative mx-auto hidden h-[24rem] w-full max-w-[24rem] lg:block lg:h-[30rem] lg:max-w-[30rem]"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         style={{ perspective: "1000px" }}

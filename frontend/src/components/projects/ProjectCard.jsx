@@ -11,37 +11,18 @@ export default function ProjectCard({
                 y: -10,
             }}
             onClick={() => onSelect(project)}
-            className="
-                group
-                cursor-pointer
-                overflow-hidden
-                rounded-3xl
-                border border-white/10
-                bg-white/3
-                backdrop-blur-xl
-            "
+            className="group h-full cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-white/3 backdrop-blur-xl"
         >
             <div className="overflow-hidden">
-                <img
-                    src={project.image}
-                    alt={project.title}
-                    className="
-                        h-64
-                        w-full
-                        object-cover
-                        transition
-                        duration-500
-                        group-hover:scale-110
-                    "
-                />
+                <img src={project.image} alt={project.title} className="h-56 w-full object-cover transition duration-500 group-hover:scale-110 sm:h-64" />
             </div>
 
-            <div className="p-6">
-                <h3 className="text-2xl font-bold text-white">
+            <div className="flex h-full flex-col p-6">
+                <h3 className="text-xl font-bold text-white sm:text-2xl">
                     {project.title}
                 </h3>
 
-                <p className="mt-3 text-slate-400">
+                <p className="mt-3 text-sm leading-relaxed text-slate-400 sm:text-base">
                     {project.description}
                 </p>
 

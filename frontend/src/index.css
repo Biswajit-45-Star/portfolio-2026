@@ -3,21 +3,45 @@
 :root {
   --bg: #050816;
   --surface: #0B1120;
-  --primary: #A855F7;      /* Purple */
-  --secondary: #06B6D4;    /* Cyan */
-  --accent: #22C55E;       /* Emerald */
+  --primary: #A855F7;
+  --secondary: #06B6D4;
+  --accent: #22C55E;
   --text: #F8FAFC;
   --muted: #94A3B8;
 }
 
-body {
-  background-color: var(--bg);
-  color: var(--text);
-}
-html {
-  scroll-behavior: smooth;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button, a, input, textarea, select {
+  font: inherit;
+}
 
 .section-container {
   max-width: 1200px;
@@ -32,12 +56,7 @@ html {
 }
 
 .gradient-text {
-  background: linear-gradient(
-    90deg,
-    var(--primary),
-    var(--secondary)
-  );
-
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

@@ -14,51 +14,22 @@ export default function ProjectShowcase() {
                 y: 0,
             }}
             viewport={{ once: true }}
-            className="
-                mb-16
-                overflow-hidden
-                rounded-[40px]
-                border border-white/10
-                bg-white/3
-            "
+            className="mb-12 overflow-hidden rounded-[32px] border border-white/10 bg-white/3 sm:mb-16 sm:rounded-[40px]"
         >
             <div className="grid lg:grid-cols-2">
 
-                <img
-                    src= {enterprise_dashboard_image}
-                    alt="Featured"
-                    className="
-                        h-72
-                        w-full
-                        flex
-                        items-center
-                        justify-center
-                        object-contain
-                    "
-                />
+                <img src={enterprise_dashboard_image} alt="Featured" className="h-60 w-full object-cover sm:h-72" />
 
-                <div className="p-10">
+                <div className="p-6 sm:p-8 lg:p-10">
                     <span className="text-(--primary)">
                         Featured Project
                     </span>
 
-                    <h2
-                        className="
-                            mt-3
-                            text-4xl
-                            font-black
-                            text-white
-                        "
-                    >
+                    <h2 className="mt-3 text-3xl font-black text-white sm:text-4xl">
                         Enterprise Dashboard
                     </h2>
 
-                    <p
-                        className="
-                            mt-6
-                            text-slate-400
-                        "
-                    >
+                    <p className="mt-6 text-sm leading-relaxed text-slate-400 sm:text-base">
                         A scalable enterprise dashboard
                         built using React, REST APIs,
                         reusable architecture and

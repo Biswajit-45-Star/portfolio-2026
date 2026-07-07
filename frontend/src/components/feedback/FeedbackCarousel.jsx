@@ -12,7 +12,7 @@ const FeedbackCarousel = ({ feedbacks = [] }) => {
   const items = [...feedbacks, ...feedbacks];
 
   return (
-    <div className="relative overflow-hidden py-4 w-full">
+    <div className="relative w-full overflow-hidden py-4">
       <style>{`
         @keyframes customMarquee {
           0% { transform: translateX(0%); }
@@ -27,20 +27,12 @@ const FeedbackCarousel = ({ feedbacks = [] }) => {
       `}</style>
 
       {/* Ticker Window Frame */}
-      <div className="flex w-max">
-        {/* FIX: Using items-start here ensures expanding one element doesn't stretch row siblings */}
-        <div className="flex gap-4 md:gap-6 marquee-container items-start">
+      <div className="flex w-max max-w-full">
+        <div className="flex items-start gap-4 marquee-container md:gap-6">
           {items.map((feedback, index) => (
             <div
               key={`${feedback._id || index}-${index}`}
-              className="
-                shrink-0
-                w-65
-                sm:w-75
-                md:w-82.5
-                lg:w-90
-                px-2
-              "
+              className="w-[min(85vw,22rem)] shrink-0 px-2 sm:w-[24rem] lg:w-[26rem]"
             >
               <FeedbackCard feedback={feedback} />
             </div>

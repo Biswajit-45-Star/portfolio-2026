@@ -30,7 +30,7 @@ const FeedbackSection = () => {
       setFeedbacks(response.data);
 
       // Calculate stats
-      if (response.data.length > 0) {
+      if (response.data?.length > 0) {
         const total = response.data.length;
         const avg = response.data.reduce((acc, curr) => acc + (curr.rating || 0), 0) / total;
         const recent = response.data.filter(f => {
@@ -67,12 +67,12 @@ const FeedbackSection = () => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <section className="relative py-20 md:py-28 px-4 md:px-6 bg-linear-to-b from-[#050812] via-[#0a0f1f] to-[#050812] overflow-hidden">
+    <section id="feedback" className="relative py-20 md:py-28 px-4 md:px-6 bg-linear-to-b from-[#050812] via-[#0a0f1f] to-[#050812] overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-100 bg-violet-600/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-100 h-100 bg-cyan-500/5 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-0 w-75 h-75 bg-purple-500/5 rounded-full blur-3xl" />
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-0 h-40 w-40 -translate-x-1/2 rounded-full bg-violet-600/5 blur-3xl sm:h-56 sm:w-56" />
+        <div className="absolute bottom-0 right-0 h-40 w-40 rounded-full bg-cyan-500/5 blur-3xl sm:h-56 sm:w-56" />
+        <div className="absolute left-0 top-1/2 h-32 w-32 -translate-y-1/2 rounded-full bg-purple-500/5 blur-3xl sm:h-48 sm:w-48" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -155,7 +155,7 @@ const FeedbackSection = () => {
                 <div className="items-center gap-2 hidden lg:block">
                   <Quote size={16} className="text-violet-400" />
                   <span className="text-sm font-medium text-white">
-                    All Feedback ({feedbacks.length})
+                    All Feedback ({feedbacks?.length})
                   </span>
                 </div>
               </div>

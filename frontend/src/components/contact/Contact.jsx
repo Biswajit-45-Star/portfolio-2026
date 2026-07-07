@@ -3,10 +3,7 @@ import ContactForm from "./ContactForm";
 
 export default function Contact() {
     return (
-        <section
-            id="contact"
-            className="relative px-6 py-32"
-        >
+        <section id="contact" className="relative px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
             <div className="mx-auto max-w-7xl">
 
                 <div className="mb-16 text-center">
@@ -23,15 +20,7 @@ export default function Contact() {
                         Let's Connect
                     </span>
 
-                    <h2
-                        className="
-              mt-6
-              text-4xl
-              font-bold
-              text-white
-              md:text-6xl
-            "
-                    >
+                    <h2 className="mt-6 text-3xl font-bold text-white sm:text-4xl md:text-6xl">
                         Let's Build Something
                         <span
                             className="
@@ -44,18 +33,14 @@ export default function Contact() {
                         </span>
                     </h2>
 
-                    <p className="mt-5 text-slate-400">
+                    <p className="mt-5 text-base text-slate-400 sm:text-lg">
                         Open to Frontend, MERN Stack and
                         React Native opportunities.
                     </p>
                 </div>
 
                 <div
-                    className="
-            grid
-            gap-10
-            lg:grid-cols-2
-          "
+                    className="grid gap-8 lg:grid-cols-2 lg:gap-10"
                 >
                     {/* Left Side */}
                     <div
@@ -64,11 +49,12 @@ export default function Contact() {
               border
               border-white/10
               bg-white/3
-              p-8
+              p-6
+              sm:p-8
               backdrop-blur-xl
             "
                     >
-                        <h3 className="text-2xl font-bold text-white">
+                        <h3 className="text-xl font-bold text-white sm:text-2xl">
                             Contact Information
                         </h3>
 

@@ -9,6 +9,7 @@ import Projects from "./components/projects/Projects"
 import Skills from "./components/skills/Skills"
 import FeedbackSection from "./components/feedback/FeedbackSection"
 import MobileNotice from "./components/MobileNotice"
+import Footer from "./components/footer/Footer"
 
 const App = () => {
       const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ const App = () => {
           <Skills />
           <FeedbackSection /> 
           <Contact />
+          <Footer />
         </>
     )}
     </>

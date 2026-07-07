@@ -30,7 +30,7 @@ const MobileNotice = () => {
       {show && (
         <>
           <motion.div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[999]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-999"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -41,10 +41,12 @@ const MobileNotice = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="fixed left-1/2 top-1/2 z-[1000] w-[90%] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/10 bg-[#0B1120] p-6 shadow-2xl"
+            className="fixed left-1/2 top-1/2 z-1000 w-[min(92vw,24rem)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/10 bg-[#0B1120] p-5 shadow-2xl sm:p-6"
           >
             <button
+              type="button"
               onClick={closePopup}
+              aria-label="Close mobile notice"
               className="absolute right-4 top-4 text-slate-400 hover:text-white"
             >
               <X size={18} />

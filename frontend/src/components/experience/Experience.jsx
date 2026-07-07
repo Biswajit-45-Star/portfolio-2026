@@ -3,14 +3,7 @@ import Timeline from "./Timeline";
 
 export default function Experience() {
   return (
-    <section
-      id="experience"
-      className="
-        relative
-        py-32
-        px-6
-      "
-    >
+    <section id="experience" className="relative px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
       <div className="mx-auto max-w-6xl">
 
         {/* Section Header */}
@@ -41,15 +34,7 @@ export default function Experience() {
             My Journey
           </span>
 
-          <h2
-            className="
-              mt-6
-              text-4xl
-              font-black
-              text-white
-              md:text-5xl
-            "
-          >
+          <h2 className="mt-6 text-3xl font-black text-white sm:text-4xl md:text-5xl">
             Professional
             <span
               className="
@@ -63,15 +48,7 @@ export default function Experience() {
             </span>
           </h2>
 
-          <p
-            className="
-              mx-auto
-              mt-6
-              max-w-2xl
-              text-lg
-              text-slate-400
-            "
-          >
+          <p className="mx-auto mt-6 max-w-2xl text-base text-slate-400 sm:text-lg">
             My journey from learning web
             development to building scalable
             frontend applications and MERN stack
