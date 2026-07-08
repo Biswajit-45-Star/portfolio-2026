@@ -23,46 +23,84 @@ const FeedbackSection = () => {
     recent: 0
   });
 
-  const fetchFeedbacks = async (showRefresh = false) => {
+  const fetchFeedbacks = async (
+    showRefresh = false,
+    retry = 3
+  ) => {
     try {
       if (showRefresh) setRefreshing(true);
-      const response = await getFeedbacks();
-      setFeedbacks(response.data);
 
-      // Calculate stats
-      if (response.data?.length > 0) {
-        const total = response.data.length;
-        const avg = response.data.reduce((acc, curr) => acc + (curr.rating || 0), 0) / total;
-        const recent = response.data.filter(f => {
-          const days = (new Date() - new Date(f.createdAt)) / (1000 * 60 * 60 * 24);
+      const response = await getFeedbacks();
+
+      const data = response?.data || [];
+
+      setFeedbacks(data);
+
+      if (data.length > 0) {
+        const total = data.length;
+
+        const averageRating =
+          data.reduce(
+            (sum, item) => sum + (item.rating || 0),
+            0
+          ) / total;
+
+        const recent = data.filter((item) => {
+          const days =
+            (Date.now() - new Date(item.createdAt).getTime()) /
+            (1000 * 60 * 60 * 24);
+
           return days <= 7;
         }).length;
 
         setStats({
           total,
-          averageRating: Math.round(avg * 10) / 10,
-          recent
+          averageRating: Number(
+            averageRating.toFixed(1)
+          ),
+          recent,
+        });
+      } else {
+        setStats({
+          total: 0,
+          averageRating: 0,
+          recent: 0,
         });
       }
-    } catch (error) {
-      console.error("Error fetching feedbacks:", error);
+    } catch (err) {
+      console.log(err);
+
+      if (retry > 0) {
+        setTimeout(() => {
+          fetchFeedbacks(showRefresh, retry - 1);
+        }, 3000);
+
+        return;
+      }
     } finally {
       setLoading(false);
-      if (showRefresh) setRefreshing(false);
+      setRefreshing(false);
     }
   };
 
   useEffect(() => {
-    fetchFeedbacks();
+    const load = async () => {
+      await fetchFeedbacks();
+    };
+
+    load();
   }, []);
 
   // Auto-refresh every 30 seconds
   useEffect(() => {
+    if (loading) return;
+
     const interval = setInterval(() => {
       fetchFeedbacks(true);
     }, 30000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [loading]);
 
   const [showForm, setShowForm] = useState(false);
 
@@ -104,11 +142,11 @@ const FeedbackSection = () => {
         </motion.div>
 
         <div className="flex justify-center mt-8">
-  <motion.button
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.96 }}
-    onClick={() => setShowForm(!showForm)}
-    className="
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => setShowForm(!showForm)}
+            className="
       px-7 py-3
       rounded-full
       bg-(--primary)
@@ -116,29 +154,29 @@ const FeedbackSection = () => {
       text-white
       cursor-pointer
     "
-  >
-    {showForm ? "Close Feedback" : "Leave Feedback"}
-  </motion.button>
-</div>
+          >
+            {showForm ? "Close Feedback" : "Leave Feedback"}
+          </motion.button>
+        </div>
 
-<AnimatePresence>
-  {showForm && (
-    <motion.div
-      initial={{ opacity: 0, y: -20, height: 0 }}
-      animate={{ opacity: 1, y: 0, height: "auto" }}
-      exit={{ opacity: 0, y: -20, height: 0 }}
-      transition={{ duration: 0.35 }}
-      className="overflow-hidden max-w-3xl mx-auto mt-10"
-    >
-      <FeedbackForm
-        onSuccess={() => {
-          fetchFeedbacks(true);
-          setShowForm(false);
-        }}
-      />
-    </motion.div>
-  )}
-</AnimatePresence>
+        <AnimatePresence>
+          {showForm && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, y: -20, height: 0 }}
+              transition={{ duration: 0.35 }}
+              className="overflow-hidden max-w-3xl mx-auto mt-10"
+            >
+              <FeedbackForm
+                onSuccess={() => {
+                  fetchFeedbacks(true);
+                  setShowForm(false);
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Main Grid */}
         <div className="space-y-10">
@@ -160,9 +198,19 @@ const FeedbackSection = () => {
                 </div>
               </div>
 
-                  <FeedbackCarousel
-                    feedbacks={feedbacks}
+              {loading ? (
+                <div className="flex justify-center py-20">
+                  <RefreshCw
+                    className="animate-spin text-(--primary)"
+                    size={28}
                   />
+                </div>
+              ) : (
+                <FeedbackCarousel
+                  feedbacks={feedbacks}
+                />
+              )}
+
             </div>
           </motion.div>
         </div>

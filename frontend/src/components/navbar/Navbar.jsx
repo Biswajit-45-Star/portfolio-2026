@@ -21,12 +21,18 @@ import {
     BarChart3,
     Users,
     TrendingUp,
-    CheckCircle2
+    CheckCircle2,
+    LineSquiggle,
+    MessageSquareHeart
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { RESUME_LINK } from "../../data/links";
 
 const navItems = [
+    {
+        name: "Intro",
+        href: "#intro",
+        icon: UserRound,
+    },
     {
         name: "About",
         href: "#about",
@@ -48,130 +54,72 @@ const navItems = [
         icon: Cpu,
     },
     {
+        name: "Feedbacks",
+        href: "#feedback",
+        icon: MessageSquareHeart,
+    },
+    {
         name: "Contact",
         href: "#contact",
         icon: Mail,
     },
 ];
 
-// Comprehensive services data
 const services = [
     {
         id: "frontend-dev",
         title: "Frontend Development",
-        icon: <Code className="w-5 h-5" />,
-        iconEmoji: "🚀",
-        description: "Building responsive, modern and high-performance web applications using React.js, Next.js, JavaScript and Tailwind CSS.",
-        features: [
-            "Responsive Web Design",
-            "SPA Development",
-            "Performance Optimization",
-            "Cross-Browser Compatibility"
-        ],
-        tags: ["React", "Next.js", "Tailwind", "TypeScript"],
-        gradient: "from-blue-500/20 to-cyan-500/20",
-        iconBg: "bg-blue-500/20",
-        iconColor: "text-blue-400"
+        icon: <Code className="w-4 h-4" />,
+        description: "Responsive web applications with React, Next.js, and modern CSS frameworks.",
+        tags: ["React", "Next.js", "Tailwind"],
     },
     {
         id: "mern-stack",
         title: "MERN Stack Development",
-        icon: <Database className="w-5 h-5" />,
-        iconEmoji: "⚡",
-        description: "Developing full-stack applications with MongoDB, Express.js, React.js and Node.js, from database design to deployment.",
-        features: [
-            "Full-Stack Architecture",
-            "REST API Development",
-            "Database Design",
-            "Deployment & DevOps"
-        ],
-        tags: ["MongoDB", "Express", "React", "Node.js"],
-        gradient: "from-emerald-500/20 to-teal-500/20",
-        iconBg: "bg-emerald-500/20",
-        iconColor: "text-emerald-400"
+        icon: <Database className="w-4 h-4" />,
+        description: "Full-stack applications with MongoDB, Express.js, React, and Node.js.",
+        tags: ["MongoDB", "Express", "React", "Node"],
     },
     {
         id: "react-native",
         title: "React Native Apps",
-        icon: <Smartphone className="w-5 h-5" />,
-        iconEmoji: "📱",
-        description: "Creating cross-platform mobile applications with React Native for Android and iOS with a native-like experience.",
-        features: [
-            "Cross-Platform Development",
-            "Native Features Integration",
-            "App Store Deployment",
-            "Performance Optimization"
-        ],
-        tags: ["React Native", "Expo", "iOS", "Android"],
-        gradient: "from-purple-500/20 to-pink-500/20",
-        iconBg: "bg-purple-500/20",
-        iconColor: "text-purple-400"
+        icon: <Smartphone className="w-4 h-4" />,
+        description: "Cross-platform mobile applications for Android and iOS.",
+        tags: ["React Native", "Expo"],
     },
     {
         id: "api-integration",
         title: "API Integration",
-        icon: <Cloud className="w-5 h-5" />,
-        iconEmoji: "🔌",
-        description: "Integrating REST APIs, handling authentication, state management, and building seamless frontend-backend communication.",
-        features: [
-            "REST API Integration",
-            "Authentication & Auth",
-            "State Management",
-            "Error Handling"
-        ],
-        tags: ["REST", "GraphQL", "Axios", "Redux"],
-        gradient: "from-indigo-500/20 to-blue-500/20",
-        iconBg: "bg-indigo-500/20",
-        iconColor: "text-indigo-400"
+        icon: <Cloud className="w-4 h-4" />,
+        description: "REST API integration, authentication, and state management.",
+        tags: ["REST", "GraphQL", "Redux"],
     },
     {
         id: "performance-opt",
         title: "Performance Optimization",
-        icon: <Zap className="w-5 h-5" />,
-        iconEmoji: "⚡",
-        description: "Improving application speed, bundle size, rendering performance, and overall user experience.",
-        features: [
-            "Bundle Size Optimization",
-            "Lazy Loading",
-            "Code Splitting",
-            "Core Web Vitals"
-        ],
-        tags: ["Lighthouse", "Web Vitals", "Optimization"],
-        gradient: "from-yellow-500/20 to-orange-500/20",
-        iconBg: "bg-yellow-500/20",
-        iconColor: "text-yellow-400"
+        icon: <Zap className="w-4 h-4" />,
+        description: "Speed optimization, bundle size reduction, and Core Web Vitals.",
+        tags: ["Optimization", "Web Vitals"],
     },
     {
         id: "ui-ux",
         title: "UI/UX Implementation",
-        icon: <Palette className="w-5 h-5" />,
-        iconEmoji: "🎨",
-        description: "Transforming Figma and design concepts into pixel-perfect, interactive and production-ready user interfaces.",
-        features: [
-            "Pixel-Perfect Implementation",
-            "Interactive Prototypes",
-            "Design Systems",
-            "Accessibility"
-        ],
-        tags: ["Figma", "Adobe XD", "Tailwind", "Framer"],
-        gradient: "from-pink-500/20 to-rose-500/20",
-        iconBg: "bg-pink-500/20",
-        iconColor: "text-pink-400"
+        icon: <Palette className="w-4 h-4" />,
+        description: "Pixel-perfect implementation of design concepts and prototypes.",
+        tags: ["Figma", "Framer", "Tailwind"],
     }
 ];
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [activeSection, setActiveSection] = useState("about");
+    const [activeSection, setActiveSection] = useState("intro");
     const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
-    // Handle scroll effects
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
 
-            // Update active section
             const sections = navItems.map(item => item.href.substring(1));
             const current = sections.find(section => {
                 const element = document.getElementById(section);
@@ -188,7 +136,6 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Close mobile menu on escape key
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === "Escape") setOpen(false);
@@ -197,7 +144,6 @@ export default function Navbar() {
         return () => document.removeEventListener("keydown", handleEscape);
     }, []);
 
-    // Prevent body scroll when mobile menu is open
     useEffect(() => {
         if (open) {
             document.body.style.overflow = "hidden";
@@ -211,43 +157,28 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`fixed left-1/2 top-5 z-50 w-[min(95%,80rem)] -translate-x-1/2 transition-all duration-300 ${scrolled ? "top-2" : "top-5"}`}>
-
+            <nav className={`fixed left-1/2 top-5 z-50 w-[95%] max-w-7xl -translate-x-1/2 transition-all duration-300 ${scrolled ? "top-2" : "top-5"}`}>
                 <motion.div
                     initial={{ y: -100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className={`flex items-center justify-between rounded-2xl border border-white/10 px-4 py-3 backdrop-blur-xl transition-all duration-300 sm:px-6 sm:py-4 ${scrolled ? "bg-[#0B1120]/90 shadow-2xl shadow-violet-500/5" : "bg-[#0B1120]/60"}`}
+                    transition={{ duration: 0.3 }}
+                    className={`flex items-center justify-between rounded-xl border border-gray-200/20 px-4 py-3 backdrop-blur-xl transition-all duration-300 sm:px-6 sm:py-3.5 bg-(--bg)}`}
                 >
                     {/* Logo */}
                     <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                         className="flex items-center gap-3 cursor-pointer"
                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                     >
-                        <a href="https://www.linkedin.com/in/biswajit-sahu-b8b79b281/">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-xl font-bold text-white bg-violet-600 relative overflow-hidden">
-                                <span className="relative z-10">BS</span>
-                                <motion.div
-                                    className="absolute inset-0 bg-linear-to-br from-transparent via-white/10 to-transparent"
-                                    animate={{
-                                        x: ["-100%", "100%"],
-                                    }}
-                                    transition={{
-                                        duration: 3,
-                                        repeat: Infinity,
-                                        repeatDelay: 2,
-                                    }}
-                                />
-                            </div>
-                        </a>
-
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-(--primary) text-white font-bold text-sm">
+                            BS
+                        </div>
                         <div className="hidden sm:block">
-                            <h3 className="font-semibold text-white">
+                            <h3 className="font-semibold text-(--text) text-sm">
                                 Biswajit Sahu
                             </h3>
-                            <p className="text-xs text-slate-400">
+                            <p className="text-xs text-(--muted)">
                                 Software Engineer
                             </p>
                         </div>
@@ -255,239 +186,149 @@ export default function Navbar() {
 
                     {/* Desktop Nav */}
                     <ul className="hidden items-center gap-1 lg:flex">
-
-
                         {navItems.map((item) => {
                             const Icon = item.icon;
                             const isActive = activeSection === item.href.substring(1);
 
                             return (
-                                <motion.li
-                                    key={item.name}
-                                    whileHover={{ y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
+                                <a
+                                    href={item.href}
+                                    className={`
+                                        relative
+                                        flex items-center gap-2
+                                        px-3 py-1
+                                        transition-colors duration-300
+                                        ${isActive
+                                            ? "text-(--text)"
+                                            : "text-gray-500 hover:text-(--text)"
+                                        }
+                                    `}
                                 >
-                                    <a
-                                        href={item.href}
-                                        className={`
-                                            flex items-center gap-2
-                                            rounded-full
-                                            px-4 py-2
-                                            text-sm
-                                            transition-all duration-300
-                                            relative
-                                            ${isActive
-                                                ? "text-white bg-white/10"
-                                                : "text-slate-300 hover:bg-white/5 hover:text-white"
-                                            }
-                                        `}
-                                    >
-                                        {isActive && (
-                                            <motion.span
-                                                layoutId="activeNav"
-                                                className="absolute inset-0 rounded-full bg-white/5"
-                                                transition={{ type: "spring", duration: 0.5 }}
-                                            />
-                                        )}
-                                        <Icon size={16} className="relative z-10" />
-                                        <span className="relative z-10">{item.name}</span>
-                                    </a>
-                                </motion.li>
+                                    <Icon size={16} />
+                                    <span className="text-sm">{item.name}</span>
+
+                                    {isActive && (
+                                        <motion.span
+                                            layoutId="navbar-indicator"
+                                            className="absolute left-0 bottom-0 h-0.5 w-full rounded-full bg-(--primary)"
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 350,
+                                                damping: 30,
+                                            }}
+                                        />
+                                    )}
+                                </a>
                             );
                         })}
                     </ul>
 
                     {/* Right side actions */}
                     <div className="hidden items-center gap-3 lg:flex">
-                        {/* Resume Button */}
-                        {/* <motion.a
-                            whileTap={{ scale: 0.95 }}
-                            href={RESUME_LINK}
-                            target="_blank"
-                            className="
-                                flex items-center gap-2
-                                rounded-full
-                                bg-violet-600
-                                px-6 py-2.5
-                                text-sm font-semibold
-                                text-white
-                                hover:bg-violet-500
-                                transition-all duration-300
-                                shadow-lg shadow-violet-500/20
-                            "
-                        >
-                            <FileText size={16} />
-                            <span>Resume</span>
-                        </motion.a> */}
-                        {/* Services Dropdown - Enhanced Premium Version */}
+                        {/* Services Dropdown */}
                         <div className="relative">
                             <div className="group">
                                 <button
                                     className="
-                                        flex items-center gap-2 
-                                        rounded-full px-5 py-2.5 
-                                        text-sm font-medium
-                                        text-slate-300 
-                                        hover:bg-white/5 hover:text-white 
-                                        transition-all duration-300
-                                        relative
-                                        group-hover:shadow-[0_0_30px_rgba(168,85,247,0.05)]
+                                        flex items-center gap-1.5
+                                        rounded-full px-3 py-1
+                                        text-gray-600
+                                        hover:text-(--text)
+                                        transition-all duration-200
                                     "
-                                    aria-haspopup="menu"
                                 >
-                                    {/* <Briefcase size={16} className="transition-colors duration-300 group-hover:text-violet-400" /> */}
-                                    <span className="tracking-wide">Let's Build</span>
-                                    <ChevronDown
-                                        size={14}
-                                        className="ml-1 transition-transform duration-300 group-hover:rotate-180"
-                                    />
+                                    <Briefcase size={15} />
+                                    <span className="text-sm">Services</span>
+                                    <ChevronDown size={14} className="ml-0.5 transition-transform duration-200 group-hover:rotate-180" />
                                 </button>
 
                                 {/* Dropdown Menu */}
                                 <div className="
                                     invisible opacity-0 scale-95 
                                     group-hover:visible group-hover:opacity-100 group-hover:scale-100
-                                    transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]
+                                    transition-all duration-200 ease-in-out
                                     pointer-events-none group-hover:pointer-events-auto
-                                    absolute right-0 top-full pt-3
-                                    w-80
-                                    rounded-2xl 
-                                    border border-white/10 
-                                    bg-[#0B1120]/95 backdrop-blur-xl
-                                    p-2
-                                    shadow-2xl shadow-violet-500/10
-                                    max-h-[80vh] overflow-y-auto
+                                    absolute right-0 top-full pt-2
+                                    w-72
+                                    rounded-xl
+                                    border border-gray-200/30
+                                    bg-(--bg)
+                                    p-1.5
                                 ">
-                                    {/* Decorative gradient line at top */}
-                                    <div className="absolute top-0 left-6 right-6 h-0.5 bg-linear-to-r from-transparent via-violet-500/40 to-transparent rounded-full" />
-
-                                    {/* Header */}
-                                    <div className="px-3 pt-3 pb-2 border-b border-white/5">
-                                        <span className="text-[10px] font-mono text-violet-400/60 uppercase tracking-[0.2em]">
-                                            ✦ What I Offer
-                                        </span>
-                                    </div>
-
-                                    {/* Services Grid */}
-                                    <div className="grid gap-1 p-1 max-h-96 overflow-y-auto custom-scrollbar">
+                                    <div className="grid gap-0.5">
                                         {services.map((s, index) => (
-                                            <a href="/#contact">
+                                            <a key={s.id} href="#contact">
                                                 <motion.div
-                                                    key={s.id}
-                                                    initial={{ opacity: 0, x: -10 }}
+                                                    initial={{ opacity: 0, x: -5 }}
                                                     animate={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: index * 0.05 }}
+                                                    transition={{ delay: index * 0.03 }}
                                                     className="
-                                                    group/item
-                                                    relative
-                                                    rounded-xl 
-                                                    p-3.5 
-                                                    transition-all duration-200
-                                                    hover:bg-white/5
-                                                    cursor-pointer
-                                                    border border-transparent
-                                                    hover:border-white/5
-                                                "
+                                                        group/item
+                                                        rounded-lg
+                                                        p-3
+                                                        transition-all duration-150
+                                                        cursor-pointer
+                                                    "
                                                 >
-                                                    {/* Hover glow */}
-                                                    <div className="
-                                                    absolute inset-0 rounded-xl 
-                                                    opacity-0 group-hover/item:opacity-100
-                                                    transition-opacity duration-300
-                                                    bg-linear-to-r from-violet-500/5 to-cyan-500/5
-                                                " />
-
-                                                    <div className="relative flex items-start gap-3.5">
-                                                        {/* Icon with gradient background */}
-                                                        <div className={`
-                                                        shrink-0
-                                                        w-10 h-10 
-                                                        rounded-xl 
-                                                        flex items-center justify-center
-                                                        ${s.iconBg}
-                                                        border border-white/5
-                                                        group-hover/item:border-violet-500/20
-                                                        transition-all duration-300
-                                                        ${s.iconColor}
-                                                    `}>
+                                                    <div className="flex items-start gap-3 hover:text-(--text)">
+                                                        <div className="shrink-0 w-8 h-8 rounded-lg bg-(--primary) flex items-center justify-center text-(--text)">
                                                             {s.icon}
                                                         </div>
-
                                                         <div className="flex-1 min-w-0">
-                                                            <h4 className="
-                                                            text-sm font-semibold 
-                                                            text-white 
-                                                            group-hover/item:text-violet-300
-                                                            transition-colors duration-200
-                                                        ">
+                                                            <h4 className="text-sm font-medium text-(--primary)">
                                                                 {s.title}
                                                             </h4>
-                                                            <p className="
-                                                            text-xs 
-                                                            text-slate-400 
-                                                            group-hover/item:text-slate-300
-                                                            transition-colors duration-200
-                                                            leading-relaxed
-                                                            mt-0.5
-                                                            line-clamp-2
-                                                        ">
+                                                            {/* <p className="text-xs text-gray-500 leading-relaxed mt-0.5 line-clamp-2">
                                                                 {s.description}
-                                                            </p>
-
-                                                            {/* Tech tags */}
-                                                            <div className="flex flex-wrap gap-1.5 mt-2">
+                                                            </p> */}
+                                                            {/* <div className="flex flex-wrap gap-1 mt-1.5">
                                                                 {s.tags.slice(0, 3).map((tag) => (
                                                                     <span
                                                                         key={tag}
-                                                                        className="
-                                                                        text-[9px] 
-                                                                        px-2 py-0.5 
-                                                                        rounded-full 
-                                                                        bg-white/5 
-                                                                        text-slate-500
-                                                                        border border-white/5
-                                                                        font-mono
-                                                                        tracking-wide
-                                                                    "
+                                                                        className="text-[9px] px-1.5 py-0.5 rounded bg-gray-100 text-(--primary) font-mono"
                                                                     >
                                                                         {tag}
                                                                     </span>
                                                                 ))}
-                                                            </div>
+                                                            </div> */}
                                                         </div>
-
-                                                        {/* Arrow indicator */}
-                                                        <ChevronRight
-                                                            size={14}
-                                                            className="
-                                                            shrink-0
-                                                            text-slate-600 
-                                                            group-hover/item:text-violet-400
-                                                            transition-all duration-200
-                                                            opacity-0 group-hover/item:opacity-100
-                                                            -translate-x-1 group-hover/item:translate-x-0
-                                                            mt-1
-                                                        "
-                                                        />
+                                                        <ChevronRight size={14} className="shrink-0 text-gray-300 opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 mt-1" />
                                                     </div>
-                                                </motion.div></a>
+                                                </motion.div>
+                                            </a>
                                         ))}
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        {/* Resume Button */}
+                        <a
+                            href="/resume.pdf"
+                            target="_blank"
+                            className="
+                                flex items-center gap-1.5
+                                rounded-full
+                                bg-(--primary)
+                                px-5 py-1.5
+                                text-sm font-medium
+                                text-white
+                                transition-all duration-200
+                            "
+                        >
+                            <FileText size={15} />
+                            <span>Resume</span>
+                        </a>
                     </div>
 
                     {/* Mobile Menu Toggle */}
-                    <div className="flex items-center gap-2 lg:hidden">
-                        <button
-                            onClick={() => setOpen(!open)}
-                            className="text-white p-2 hover:bg-white/5 rounded-lg transition-all duration-300"
-                            aria-label="Toggle menu"
-                        >
-                            {open ? <X /> : <Menu />}
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => setOpen(!open)}
+                        className="text-gray-600 p-1.5 hover:bg-(--bg) rounded-lg transition-all duration-200 lg:hidden"
+                        aria-label="Toggle menu"
+                    >
+                        {open ? <X size={20} /> : <Menu size={20} />}
+                    </button>
                 </motion.div>
             </nav>
 
@@ -495,73 +336,54 @@ export default function Navbar() {
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        initial={{
-                            opacity: 0,
-                            scale: 0.9,
-                        }}
-                        animate={{
-                            opacity: 1,
-                            scale: 1,
-                        }}
-                        exit={{
-                            opacity: 0,
-                            scale: 0.9,
-                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="
-                            fixed inset-0 z-40
-                            flex items-center justify-center
-                            bg-black/70 backdrop-blur-md
-                            lg:hidden
-                        "
+                        className="fixed inset-0 z-40 bg-black/40 lg:hidden"
                         onClick={() => setOpen(false)}
                     >
                         <motion.div
-                            initial={{ y: 50, opacity: 0 }}
+                            initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: 50, opacity: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="mt-20 w-[min(90vw,28rem)] max-w-md rounded-3xl border border-white/10 bg-[#0B1120] p-5 shadow-2xl max-h-[85vh] overflow-y-auto sm:p-6"
-
+                            exit={{ y: 20, opacity: 0 }}
+                            transition={{ delay: 0.05 }}
+                            className="fixed top-23 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-xl border border-gray-200/30 bg-(--bg) p-4 max-h-[80vh] overflow-y-auto"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-1">
                                 {navItems.map((item, index) => (
                                     <motion.a
                                         key={item.name}
                                         href={item.href}
                                         className="
-                                            flex items-center justify-center gap-3
-                                            text-center
-                                            text-lg
-                                            text-slate-300
-                                            hover:text-white
-                                            hover:bg-white/5
-                                            py-3 px-4
-                                            rounded-xl
-                                            transition-all duration-300
+                                            flex items-center gap-3
+                                            text-(--text)
+                                            py-2.5 px-3
+                                            rounded-lg
+                                            transition-all duration-150
                                         "
                                         onClick={() => setOpen(false)}
-                                        initial={{ opacity: 0, x: -20 }}
+                                        initial={{ opacity: 0, x: -10 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.05 }}
+                                        transition={{ delay: index * 0.03 }}
                                     >
-                                        <item.icon size={20} />
-                                        {item.name}
+                                        <item.icon size={18} />
+                                        <span className="text-sm">{item.name}</span>
                                     </motion.a>
                                 ))}
 
                                 {/* Mobile Services Collapsible */}
-                                <div>
+                                <div className="mt-1">
                                     <button
                                         onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                                        className="w-full flex items-center justify-center gap-3 text-lg text-slate-300 hover:text-white hover:bg-white/5 py-3 px-4 rounded-xl transition-all duration-300"
+                                        className="w-full flex items-center justify-between text-(--text) py-2.5 px-3 rounded-lg transition-all duration-150"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <Briefcase size={20} />
-                                            <span>Services</span>
+                                            <Briefcase size={18} />
+                                            <span className="text-sm">Services</span>
                                         </div>
-                                        <ChevronDown size={18} className={`${mobileServicesOpen ? "rotate-180" : ""} transition-transform`} />
+                                        <ChevronDown size={16} className={`${mobileServicesOpen ? "rotate-180" : ""} transition-transform duration-200`} />
                                     </button>
 
                                     <AnimatePresence>
@@ -570,72 +392,47 @@ export default function Navbar() {
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: "auto", opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
-                                                transition={{ duration: 0.3 }}
-                                                className="mt-3 space-y-3 px-2 overflow-hidden"
+                                                transition={{ duration: 0.2 }}
+                                                className="overflow-hidden"
                                             >
-                                                {services.map((s) => (
-                                                    <div key={s.id} className="rounded-xl p-4 bg-white/5 border border-white/5">
-                                                        <div className="flex items-center gap-2 mb-1.5">
-                                                            <span className={s.iconColor}>{s.icon}</span>
-                                                            <h4 className="text-sm font-semibold text-white">{s.title}</h4>
+                                                <div className="space-y-2 px-3 pb-2">
+                                                    {services.map((s) => (
+                                                        <div onClick={() => setOpen(false)} key={s.id} className="rounded-lg p-3 bg-(--bg) border border-gray-100">
+                                                            <div className="flex items-center gap-2 mb-1">
+                                                                <span className="text-(--primary)">{s.icon}</span>
+                                                                <h4 className="text-sm text-(--text)">{s.title}</h4>
+                                                            </div>
                                                         </div>
-                                                        <p className="text-xs text-slate-400 leading-relaxed">{s.description}</p>
-                                                        <div className="flex flex-wrap gap-1 mt-2">
-                                                            {s.tags.slice(0, 3).map((tag) => (
-                                                                <span key={tag} className="text-[9px] px-2 py-0.5 rounded-full bg-white/5 text-slate-500 font-mono">
-                                                                    {tag}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                ))}
+                                                    ))}
+                                                </div>
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
                                 </div>
 
-                                <motion.a
-                                    href={RESUME_LINK}
+                                <a
+                                    href="/resume.pdf"
                                     target="_blank"
                                     className="
-                                        mt-2
-                                        rounded-xl
-                                        bg-violet-600
-                                        py-3.5
+                                        mt-3
+                                        rounded-lg
+                                        bg-(--primary)
+                                        py-2.5
                                         text-center
-                                        font-semibold
+                                        text-sm font-medium
                                         text-white
-                                        hover:bg-violet-500
-                                        transition-all duration-300
+                                        hover:bg-(--primary)
+                                        transition-all duration-200
                                     "
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
                                     onClick={() => setOpen(false)}
                                 >
                                     Download Resume
-                                </motion.a>
+                                </a>
                             </div>
                         </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>
-
-            {/* Custom Scrollbar Styles */}
-            <style jsx>{`
-                .custom-scrollbar::-webkit-scrollbar {
-                    width: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: rgba(168, 85, 247, 0.3);
-                    border-radius: 10px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: rgba(168, 85, 247, 0.5);
-                }
-            `}</style>
         </>
     );
 }
