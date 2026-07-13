@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { User, Code2, Rocket, Sparkles } from "lucide-react";
+import { User, Code2, Rocket, Sparkles, MonitorDot } from "lucide-react";
 import { RESUME_LINK } from "../../data/links";
 import { useState, useEffect } from "react";
 
@@ -182,8 +182,8 @@ export default function HeroText() {
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-fuchsia-500/10 p-2">
-                        <Code2 size={18} className="text-fuchsia-400" />
+                    <div className="rounded-lg bg-violet-500/10 p-2">
+                        <Code2 size={18} className="text-violet-400" />
                     </div>
                     <div>
                         <p className="text-xl font-bold text-white">10+</p>
@@ -191,12 +191,27 @@ export default function HeroText() {
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-cyan-500/10 p-2">
-                        <Sparkles size={18} className="text-cyan-400" />
+                    <div className="rounded-lg bg-violet-500/10 p-2">
+                        <Sparkles size={18} className="text-violet-400" />
                     </div>
                     <div>
                         <p className="text-xl font-bold text-white">100%</p>
                         <p className="text-xs text-slate-400">Client Satisfaction</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-violet-500/10 p-2">
+                        <MonitorDot size={18} className="text-violet-400" />
+                    </div>
+
+                    <div>
+                        <p className="text-xl font-bold text-white">
+                            15+
+                        </p>
+
+                        <p className="text-xs text-slate-400">
+                            Technologies
+                        </p>
                     </div>
                 </div>
             </motion.div>
