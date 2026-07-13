@@ -23,7 +23,8 @@ import {
     TrendingUp,
     CheckCircle2,
     LineSquiggle,
-    MessageSquareHeart
+    MessageSquareHeart,
+    BookOpen
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -31,28 +32,34 @@ const navItems = [
     {
         name: "Intro",
         href: "#intro",
-        icon: UserRound,
+        icon: BookOpen,
     },
     {
         name: "About",
         href: "#about",
         icon: UserRound,
+        subItems: [
+            { name: "Who I am", href: "#about", icon: UserRound },
+            { name: "Experience", href: "#experience", icon: BriefcaseBusiness },
+            { name: "Projects", href: "#projects", icon: FolderKanban },
+            { name: "Tech Stack", href: "#skills", icon: Cpu },
+        ],
     },
-    {
-        name: "Experience",
-        href: "#experience",
-        icon: BriefcaseBusiness,
-    },
-    {
-        name: "Projects",
-        href: "#projects",
-        icon: FolderKanban,
-    },
-    {
-        name: "Tech Stack",
-        href: "#skills",
-        icon: Cpu,
-    },
+    // {
+    //     name: "Experience",
+    //     href: "#experience",
+    //     icon: BriefcaseBusiness,
+    // },
+    // {
+    //     name: "Projects",
+    //     href: "#projects",
+    //     icon: FolderKanban,
+    // },
+    // {
+    //     name: "Tech Stack",
+    //     href: "#skills",
+    //     icon: Cpu,
+    // },
     {
         name: "Feedbacks",
         href: "#feedback",
@@ -70,62 +77,58 @@ const services = [
         id: "frontend-dev",
         title: "Frontend Development",
         icon: <Code className="w-4 h-4" />,
-        description: "Responsive web applications with React, Next.js, and modern CSS frameworks.",
-        tags: ["React", "Next.js", "Tailwind"],
     },
     {
         id: "mern-stack",
         title: "MERN Stack Development",
         icon: <Database className="w-4 h-4" />,
-        description: "Full-stack applications with MongoDB, Express.js, React, and Node.js.",
-        tags: ["MongoDB", "Express", "React", "Node"],
     },
     {
         id: "react-native",
         title: "React Native Apps",
         icon: <Smartphone className="w-4 h-4" />,
-        description: "Cross-platform mobile applications for Android and iOS.",
-        tags: ["React Native", "Expo"],
     },
     {
         id: "api-integration",
         title: "API Integration",
         icon: <Cloud className="w-4 h-4" />,
-        description: "REST API integration, authentication, and state management.",
-        tags: ["REST", "GraphQL", "Redux"],
     },
     {
         id: "performance-opt",
         title: "Performance Optimization",
         icon: <Zap className="w-4 h-4" />,
-        description: "Speed optimization, bundle size reduction, and Core Web Vitals.",
-        tags: ["Optimization", "Web Vitals"],
     },
     {
         id: "ui-ux",
         title: "UI/UX Implementation",
         icon: <Palette className="w-4 h-4" />,
-        description: "Pixel-perfect implementation of design concepts and prototypes.",
-        tags: ["Figma", "Framer", "Tailwind"],
     }
 ];
+
+// subItems are now embedded on navItems so no separate aboutSubItems is needed
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("intro");
     const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+    const [mobileOpenMenu, setMobileOpenMenu] = useState(null);
+    const [hoveredMenu, setHoveredMenu] = useState(null);
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
 
-            const sections = navItems.map(item => item.href.substring(1));
+            // collect all section ids from navItems and their subItems
+            const sections = navItems.flatMap(item => [item.href, ...(item.subItems ? item.subItems.map(s => s.href) : [])])
+                .map(h => h.replace(/^#/, ""));
+
+            // find the first section that is currently around the top of the viewport
             const current = sections.find(section => {
                 const element = document.getElementById(section);
                 if (element) {
                     const rect = element.getBoundingClientRect();
-                    return rect.top <= 100 && rect.bottom >= 100;
+                    return rect.top <= 120 && rect.bottom >= 80;
                 }
                 return false;
             });
@@ -188,10 +191,65 @@ export default function Navbar() {
                     <ul className="hidden items-center gap-1 lg:flex">
                         {navItems.map((item) => {
                             const Icon = item.icon;
-                            const isActive = activeSection === item.href.substring(1);
+                            // item is active if its own href matches or any of its subItems match
+                            const isActive = activeSection === item.href.substring(1) || (item.subItems && item.subItems.some(s => activeSection === s.href.substring(1)));
+
+                            // If the item has subItems, render a data-driven submenu
+                            if (item.subItems && item.subItems.length) {
+                                const isOpen = hoveredMenu === item.name;
+                                return (
+                                    <li key={item.name} className="relative" onMouseEnter={() => setHoveredMenu(item.name)} onMouseLeave={() => setHoveredMenu(null)}>
+                                        <a
+                                            href={item.href}
+                                            className={`
+                                                flex items-center gap-2
+                                                px-3 py-1
+                                                transition-colors duration-300
+                                                ${isActive
+                                                    ? "text-(--text)"
+                                                    : "text-gray-500 hover:text-(--text)"
+                                                }
+                                            `}
+                                        >
+                                            <Icon size={16} />
+                                            <span className="text-sm">{item.name}</span>
+                                            <ChevronDown size={14} className="ml-1" />
+                                        </a>
+                                                
+                                        <AnimatePresence>
+                                            {isOpen && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: -6 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -6 }}
+                                                    transition={{ duration: 0.12 }}
+                                                    className="absolute top-full mt-2 -left-2 w-44 rounded-xl border border-gray-200/30 bg-(--bg) p-2 shadow-md"
+                                                >
+                                                    <div className="flex flex-col gap-1">
+                                                        {item.subItems.map((s) => {
+                                                            const subActive = activeSection === s.href.substring(1);
+                                                            const SubIcon = s.icon;
+                                                            return (
+                                                                <a
+                                                                    key={s.name}
+                                                                    href={s.href}
+                                                                    className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-150 ${subActive ? "text-(--text)" : "text-gray-500 hover:text-(--text)"}`}
+                                                                >
+                                                                    <SubIcon size={14} />
+                                                                    <span className="text-sm">{s.name}</span>
+                                                                </a>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </li>
+                                );
+                            }
 
                             return (
-                                <a
+                                <a key={item.name}
                                     href={item.href}
                                     className={`
                                         relative
@@ -352,26 +410,71 @@ export default function Navbar() {
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className="flex flex-col gap-1">
-                                {navItems.map((item, index) => (
-                                    <motion.a
-                                        key={item.name}
-                                        href={item.href}
-                                        className="
-                                            flex items-center gap-3
-                                            text-(--text)
-                                            py-2.5 px-3
-                                            rounded-lg
-                                            transition-all duration-150
-                                        "
-                                        onClick={() => setOpen(false)}
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.03 }}
-                                    >
-                                        <item.icon size={18} />
-                                        <span className="text-sm">{item.name}</span>
-                                    </motion.a>
-                                ))}
+                                {navItems.map((item, index) => {
+                                    // If this nav item has subItems, render a collapsible group
+                                    if (item.subItems && item.subItems.length) {
+                                        const isOpen = mobileOpenMenu === item.name;
+                                        return (
+                                            <div key={item.name} className="w-full">
+                                                <button
+                                                    onClick={() => setMobileOpenMenu(isOpen ? null : item.name)}
+                                                    className="w-full flex items-center justify-between text-(--text) py-2.5 px-3 rounded-lg transition-all duration-150"
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <item.icon size={18} />
+                                                        <span className="text-sm">{item.name}</span>
+                                                    </div>
+                                                    <ChevronDown size={16} className={`${isOpen ? "rotate-180" : ""} transition-transform duration-200`} />
+                                                </button>
+
+                                                <AnimatePresence>
+                                                    {isOpen && (
+                                                        <motion.div
+                                                            initial={{ height: 0, opacity: 0 }}
+                                                            animate={{ height: "auto", opacity: 1 }}
+                                                            exit={{ height: 0, opacity: 0 }}
+                                                            transition={{ duration: 0.18 }}
+                                                            className="overflow-hidden px-3 pb-2 space-y-1"
+                                                        >
+                                                            {item.subItems.map((s) => {
+                                                                const SubIcon = s.icon;
+                                                                return (
+                                                                    <a key={s.name} href={s.href} onClick={() => { setOpen(false); setMobileOpenMenu(null); }} className="block rounded-lg p-3 bg-(--bg) border border-gray-100 text-(--text)">
+                                                                        <div className="flex items-center gap-2">
+                                                                            <SubIcon size={16} />
+                                                                            <span className="text-sm">{s.name}</span>
+                                                                        </div>
+                                                                    </a>
+                                                                );
+                                                            })}
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                        );
+                                    }
+
+                                    return (
+                                        <motion.a
+                                            key={item.name}
+                                            href={item.href}
+                                            className="
+                                                flex items-center gap-3
+                                                text-(--text)
+                                                py-2.5 px-3
+                                                rounded-lg
+                                                transition-all duration-150
+                                            "
+                                            onClick={() => setOpen(false)}
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.03 }}
+                                        >
+                                            <item.icon size={18} />
+                                            <span className="text-sm">{item.name}</span>
+                                        </motion.a>
+                                    );
+                                })}
 
                                 {/* Mobile Services Collapsible */}
                                 <div className="mt-1">

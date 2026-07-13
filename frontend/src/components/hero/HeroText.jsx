@@ -1,8 +1,58 @@
 import { motion } from "framer-motion";
 import { User, Code2, Rocket, Sparkles } from "lucide-react";
 import { RESUME_LINK } from "../../data/links";
+import { useState, useEffect } from "react";
 
 export default function HeroText() {
+    const [displayText, setDisplayText] = useState("");
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const roles = [
+        "Frontend & MERN Developer",
+        "React & Next.js Specialist",
+        "Full Stack JavaScript Developer",
+        "React Native Mobile Developer",
+        "UI/UX Enthusiast",
+        "Performance Optimizer"
+    ];
+
+    useEffect(() => {
+        let timeout;
+
+        const typeEffect = () => {
+            const currentRole = roles[currentIndex];
+
+            if (!isDeleting) {
+                // Typing
+                if (displayText.length < currentRole.length) {
+                    setDisplayText(currentRole.slice(0, displayText.length + 1));
+                    timeout = setTimeout(typeEffect, 50 + Math.random() * 30);
+                } else {
+                    // Pause at full text
+                    timeout = setTimeout(() => {
+                        setIsDeleting(true);
+                        timeout = setTimeout(typeEffect, 50);
+                    }, 2000);
+                }
+            } else {
+                // Deleting
+                if (displayText.length > 0) {
+                    setDisplayText(displayText.slice(0, -1));
+                    timeout = setTimeout(typeEffect, 25 + Math.random() * 20);
+                } else {
+                    setIsDeleting(false);
+                    setCurrentIndex((prev) => (prev + 1) % roles.length);
+                    timeout = setTimeout(typeEffect, 100);
+                }
+            }
+        };
+
+        timeout = setTimeout(typeEffect, 20);
+
+        return () => clearTimeout(timeout);
+    }, [displayText, isDeleting, currentIndex]);
+
     return (
         <div className="relative z-10 max-w-2xl">
             <motion.span
@@ -65,22 +115,90 @@ export default function HeroText() {
                 </div>
             </motion.div>
 
-            <motion.h2 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mt-6 text-xl font-semibold text-slate-300 sm:text-2xl">
-                Frontend Engineer & MERN Stack Developer
-            </motion.h2>
+            {/* Typing Effect Subtitle */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="mt-6 flex items-center gap-2"
+            >
+                <Code2 size={18} className="text-violet-400 shrink-0" />
+                <h2 className="text-xl font-semibold text-slate-300 sm:text-2xl">
+                    {displayText}
+                    <span className="inline-block w-0.5 h-6 bg-violet-400 ml-1 animate-pulse" />
+                </h2>
+            </motion.div>
 
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg">
+            <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg"
+            >
                 Building fast, scalable and visually stunning web applications using React, MERN Stack and React Native.
             </motion.p>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="mt-10 flex flex-wrap gap-3 sm:gap-4">
-                <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#projects" className="rounded-full bg-(--primary) px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 sm:px-8 sm:py-4 sm:text-base">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="mt-10 flex flex-wrap gap-3 sm:gap-4"
+            >
+                <motion.a
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    href="#projects"
+                    className="rounded-full bg-(--primary) px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 sm:px-8 sm:py-4 sm:text-base"
+                >
                     View Projects
                 </motion.a>
 
-                <motion.a whileHover={{ scale: 1.05, borderColor: "#8B5CF6" }} whileTap={{ scale: 0.95 }} href={RESUME_LINK} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-violet-500 sm:px-8 sm:py-4 sm:text-base">
+                <motion.a
+                    whileHover={{ scale: 1.05, borderColor: "#8B5CF6" }}
+                    whileTap={{ scale: 0.95 }}
+                    href={RESUME_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-white/10 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-violet-500 sm:px-8 sm:py-4 sm:text-base"
+                >
                     My Resume
                 </motion.a>
+            </motion.div>
+
+            {/* Stats Section */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 }}
+                className="mt-12 flex flex-wrap gap-6 border-t border-white/10 pt-8"
+            >
+                <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-violet-500/10 p-2">
+                        <Rocket size={18} className="text-violet-400" />
+                    </div>
+                    <div>
+                        <p className="text-xl font-bold text-white">1.5+</p>
+                        <p className="text-xs text-slate-400">Years Experience</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-fuchsia-500/10 p-2">
+                        <Code2 size={18} className="text-fuchsia-400" />
+                    </div>
+                    <div>
+                        <p className="text-xl font-bold text-white">10+</p>
+                        <p className="text-xs text-slate-400">Projects Delivered</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-cyan-500/10 p-2">
+                        <Sparkles size={18} className="text-cyan-400" />
+                    </div>
+                    <div>
+                        <p className="text-xl font-bold text-white">100%</p>
+                        <p className="text-xs text-slate-400">Client Satisfaction</p>
+                    </div>
+                </div>
             </motion.div>
         </div>
     );
