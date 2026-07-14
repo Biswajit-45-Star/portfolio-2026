@@ -101,7 +101,7 @@ export default function HeroText() {
                 </motion.div>
 
                 <div className="min-w-0">
-                    <motion.h1 className="text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                    <motion.h1 className="saira-stencil text-4xl font-black leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                         Biswajit
                         <br className="block sm:hidden" />
                         <span className="hidden sm:inline">&nbsp;</span>
@@ -170,7 +170,7 @@ export default function HeroText() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 }}
-                className="mt-12 flex flex-wrap gap-6 border-t border-white/10 pt-8"
+                className="hidden sm:flex mt-12 flex-wrap gap-6 border-t border-white/10 pt-8"
             >
                 <div className="flex items-center gap-3">
                     <div className="rounded-lg bg-violet-500/10 p-2">
